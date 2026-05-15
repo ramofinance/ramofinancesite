@@ -1,455 +1,354 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RAMOFINANCE — Systematic Investment Group</title>
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RAMOFINANCE</title>
 
-    body {
-      background: #0b0f1a;
-      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-      color: #eef5ff;
-      overflow-x: hidden;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    /* smooth scroll behavior */
-    html {
-      scroll-behavior: smooth;
-    }
+<style>
 
-    /* custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #141a2a;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #2b5cff;
-      border-radius: 10px;
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-    .container {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
+body{
+    background:#050505;
+    color:white;
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+}
 
-    /* header / navbar */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 1.2rem 0;
-      border-bottom: 1px solid rgba(59,130,246,0.2);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      background: rgba(11,15,26,0.85);
-      z-index: 100;
-    }
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .logo-icon {
-      width: 44px;
-      height: 44px;
-      background: linear-gradient(135deg, #2b5cff, #8b5cf6);
-      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 22px;
-      box-shadow: 0 0 12px #2b5cff80;
-    }
-    .brand-name {
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      background: linear-gradient(120deg, #fff, #a0b9ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .nav-links {
-      display: flex;
-      gap: 1.3rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .nav-links a {
-      color: #ccd9f0;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: 0.2s;
-    }
-    .nav-links a:hover {
-      color: #3b82f6;
-    }
-    .lang-btn {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid #2b4cae;
-      padding: 5px 14px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-size: 0.8rem;
-    }
+body::before{
+    content:'';
+    position:fixed;
+    width:700px;
+    height:700px;
+    background:radial-gradient(circle, rgba(212,175,55,0.15), transparent 70%);
+    top:-250px;
+    right:-200px;
+    z-index:-1;
+}
 
-    /* hero section */
-    .hero {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      margin: 3rem 0 5rem;
-      gap: 2rem;
-    }
-    .hero-left {
-      flex: 1;
-    }
-    .hero-badge {
-      background: #1e2a4a;
-      padding: 0.3rem 1rem;
-      border-radius: 30px;
-      font-size: 0.8rem;
-      display: inline-block;
-      margin-bottom: 1rem;
-      color: #8bb4ff;
-    }
-    .hero-left h1 {
-      font-size: 3.2rem;
-      font-weight: 800;
-      line-height: 1.2;
-    }
-    .gradient-stat {
-      font-size: 4rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #ffe6a3, #3b82f6);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      display: inline-block;
-    }
-    .hero-desc {
-      margin: 1.5rem 0;
-      opacity: 0.8;
-      max-width: 90%;
-    }
-    .btn-group-hero {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .btn-primary {
-      background: #1d4ed8;
-      padding: 12px 28px;
-      border-radius: 40px;
-      text-decoration: none;
-      font-weight: 600;
-      color: white;
-      transition: 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .btn-outline-light {
-      background: transparent;
-      border: 1px solid #3b82f6;
-      padding: 12px 28px;
-      border-radius: 40px;
-      text-decoration: none;
-      color: #bbd7ff;
-      transition: 0.2s;
-    }
-    .hero-right {
-      flex: 1;
-      background: rgba(20,30,55,0.5);
-      backdrop-filter: blur(10px);
-      border-radius: 32px;
-      padding: 2rem;
-      text-align: center;
-      border: 1px solid #2b3f6e;
-    }
-    .stat-number {
-      font-size: 3rem;
-      font-weight: 800;
-    }
+body::after{
+    content:'';
+    position:fixed;
+    width:600px;
+    height:600px;
+    background:radial-gradient(circle, rgba(212,175,55,0.08), transparent 70%);
+    bottom:-250px;
+    left:-150px;
+    z-index:-1;
+}
 
-    /* section cards - trading alone vs solution */
-    .section-title {
-      font-size: 2.2rem;
-      font-weight: 700;
-      text-align: center;
-      margin: 4rem 0 2rem;
-    }
-    .split-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin: 2rem 0;
-    }
-    .card-problem, .card-solution {
-      background: rgba(12, 20, 30, 0.6);
-      backdrop-filter: blur(4px);
-      border-radius: 2rem;
-      padding: 2rem;
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: transform 0.2s;
-    }
-    .card-problem:hover, .card-solution:hover {
-      transform: translateY(-5px);
-      border-color: #3b82f640;
-    }
-    .problem-list {
-      list-style: none;
-      margin-top: 1rem;
-    }
-    .problem-list li {
-      margin: 1rem 0;
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-    .problem-list li i {
-      color: #ff5e4a;
-      width: 24px;
-    }
-    .solution-list {
-      list-style: none;
-    }
-    .solution-list li {
-      margin: 1rem 0;
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-    .solution-list li i {
-      color: #4ade80;
-    }
-    .badge-sol {
-      background: #1e3a5f;
-      padding: 5px 12px;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      display: inline-block;
-    }
+nav{
+    width:100%;
+    padding:24px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    position:fixed;
+    top:0;
+    z-index:100;
+    background:rgba(0,0,0,0.45);
+}
 
-    /* investors section */
-    .investor-strip {
-      background: linear-gradient(90deg, #0f172a, #111c3a);
-      border-radius: 40px;
-      padding: 2rem;
-      margin: 3rem 0;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      align-items: center;
-    }
+.logo{
+    font-size:28px;
+    font-family:'Cinzel',serif;
+    color:#d4af37;
+    letter-spacing:2px;
+}
 
-    /* footer */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      margin-top: 3rem;
-      border-top: 1px solid #1e293b;
-      font-size: 0.8rem;
-    }
+.nav-links{
+    display:flex;
+    gap:35px;
+}
 
-    @media (max-width: 800px) {
-      .split-grid {
-        grid-template-columns: 1fr;
-      }
-      .navbar {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      .hero-left h1 {
-        font-size: 2.3rem;
-      }
-      .container {
-        padding: 0 1rem;
-      }
-    }
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    opacity:0.75;
+    transition:0.3s;
+}
 
-    /* animations */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.7s ease;
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+.nav-links a:hover{
+    opacity:1;
+    color:#d4af37;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:120px 8%;
+    gap:60px;
+}
+
+.hero-left{
+    flex:1;
+}
+
+.hero-left h1{
+    font-size:78px;
+    line-height:1.05;
+    margin-bottom:25px;
+    font-family:'Cinzel',serif;
+}
+
+.gold{
+    color:#d4af37;
+}
+
+.hero-left p{
+    max-width:650px;
+    font-size:20px;
+    opacity:0.75;
+    line-height:1.8;
+}
+
+.buttons{
+    margin-top:40px;
+    display:flex;
+    gap:18px;
+}
+
+.btn{
+    padding:16px 34px;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.btn-gold{
+    background:#d4af37;
+    color:black;
+}
+
+.btn-gold:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 30px rgba(212,175,55,0.3);
+}
+
+.btn-dark{
+    border:1px solid rgba(255,255,255,0.15);
+    color:white;
+}
+
+.btn-dark:hover{
+    border-color:#d4af37;
+    color:#d4af37;
+}
+
+.hero-right{
+    flex:1;
+    display:flex;
+    justify-content:center;
+}
+
+.hero-card{
+    width:520px;
+    height:520px;
+    border-radius:32px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero-card::before{
+    content:'';
+    position:absolute;
+    width:350px;
+    height:350px;
+    background:radial-gradient(circle, rgba(212,175,55,0.25), transparent 70%);
+}
+
+.hero-card img{
+    width:78%;
+    z-index:2;
+    filter:drop-shadow(0 0 25px rgba(212,175,55,0.35));
+}
+
+.section{
+    padding:120px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:70px;
+}
+
+.section-title h2{
+    font-size:52px;
+    font-family:'Cinzel',serif;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:24px;
+}
+
+.card{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:24px;
+    padding:35px;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(212,175,55,0.4);
+}
+
+.card h3{
+    margin-bottom:16px;
+    color:#d4af37;
+    font-size:24px;
+}
+
+.card p{
+    opacity:0.75;
+    line-height:1.7;
+}
+
+footer{
+    padding:50px 8%;
+    border-top:1px solid rgba(255,255,255,0.06);
+    text-align:center;
+    opacity:0.5;
+}
+
+@media(max-width:1000px){
+
+.hero{
+    flex-direction:column;
+    text-align:center;
+}
+
+.hero-left h1{
+    font-size:54px;
+}
+
+.buttons{
+    justify-content:center;
+}
+
+.hero-card{
+    width:100%;
+    height:420px;
+}
+
+.nav-links{
+    display:none;
+}
+
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="container">
-  <div class="navbar">
-    <div class="logo-area">
-      <div class="logo-icon">R</div>
-      <span class="brand-name">RAMOFINANCE</span>
-    </div>
+<nav>
+    <div class="logo">RAMOFINANCE</div>
+
     <div class="nav-links">
-      <a href="#">Home</a><a href="#">WhyUs</a><a href="#">OurEdge</a><a href="#">About</a><a href="#">Contact</a><a href="#">JoinWaitlist</a><a href="#">Performance</a>
-      <button class="lang-btn" id="langSwitch">🇮🇷 فارسی</button>
+        <a href="#">Home</a>
+        <a href="#">Strategy</a>
+        <a href="#">Performance</a>
+        <a href="#">About</a>
     </div>
-  </div>
+</nav>
 
-  <!-- Hero section with animated counter -->
-  <div class="hero fade-up">
+<section class="hero">
+
     <div class="hero-left">
-      <div class="hero-badge">Professional</div>
-      <h1><span class="gradient-stat" id="ytdCounter">+0%</span> <span style="display:block; font-size: 1.8rem;">YTD</span></h1>
-      <h1 style="margin-top: 0.5rem;">Investment.<br>Systematic Growth.</h1>
-      <p class="hero-desc">We manage risk. We follow our edge. You grow with confidence.</p>
-      <div class="btn-group-hero">
-        <a href="https://t.me/ramofinancebot" target="_blank" class="btn-primary"><i class="fab fa-telegram"></i> Join Our Telegram</a>
-        <a href="#" class="btn-outline-light" id="waitlistHero">Join Waitlist</a>
-      </div>
+
+        <h1>
+            Professional<br>
+            Investment.<br>
+            <span class="gold">Systematic Growth.</span>
+        </h1>
+
+        <p>
+            Most traders fail because they rely on emotion, inconsistency, and unmanaged risk.
+            RAMOFINANCE is built around structured execution, disciplined systems, and long-term capital growth.
+        </p>
+
+        <div class="buttons">
+            <a href="#" class="btn btn-gold">Join Telegram</a>
+            <a href="#" class="btn btn-dark">Learn More</a>
+        </div>
+
     </div>
+
     <div class="hero-right">
-      <div class="stat-number">+86.7%</div>
-      <p>Professional Investment Group</p>
-      <div style="font-size: 0.9rem; margin-top: 1rem;"><i class="fas fa-users"></i> Join 1000+ investors building their financial future with us.</div>
+
+        <div class="hero-card">
+            <img src="https://i.imgur.com/7w4V8WQ.png" alt="logo">
+        </div>
+
     </div>
-  </div>
 
-  <!-- Trading Alone Is Hard Section -->
-  <div class="section-title fade-up">Trading Alone Is Hard. <span style="color:#3b82f6;">The Solution?</span><br>You're Not Alone.</div>
-  <div class="split-grid">
-    <div class="card-problem fade-up">
-      <h3><i class="fas fa-exclamation-triangle"></i> Trading Alone</h3>
-      <ul class="problem-list">
-        <li><i class="fas fa-brain"></i> Emotional Decisions — Fear and greed</li>
-        <li><i class="fas fa-shield-alt"></i> No Risk Management — One bad trade can wipe out your account</li>
-        <li><i class="fas fa-chart-line"></i> Lack of Strategy — Without a clear plan, you're just guessing</li>
-        <li><i class="fas fa-clock"></i> Time Consuming — Markets never sleep, but you can't watch 24/7</li>
-        <li><i class="fas fa-chart-simple"></i> Inconsistent Results — Some wins, more losses. Zero consistency.</li>
-      </ul>
+</section>
+
+<section class="section">
+
+    <div class="section-title">
+        <h2>Why Most Traders <span class="gold">Lose</span></h2>
     </div>
-    <div class="card-solution fade-up">
-      <h3><i class="fas fa-building"></i> RAMOFINANCE Approach</h3>
-      <ul class="solution-list">
-        <li><i class="fas fa-chart-simple"></i> Systematic & Proven Strategies</li>
-        <li><i class="fas fa-database"></i> Data-Driven Decisions — Discipline Over Emotions</li>
-        <li><i class="fas fa-chart-line"></i> Consistent Long-Term Growth</li>
-        <li><i class="fas fa-robot"></i> Automated risk management & Telegram bot integration</li>
-        <li><i class="fas fa-handshake"></i> Professional Risk Management — We follow our edge</li>
-      </ul>
-      <div class="badge-sol"><i class="fab fa-telegram"></i> Join 1000+ investors</div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Emotional Trading</h3>
+            <p>
+                Fear and greed create impulsive decisions that destroy consistency over time.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>No Risk Structure</h3>
+            <p>
+                One uncontrolled position can wipe out months of progress and discipline.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Lack of Strategy</h3>
+            <p>
+                Most people enter markets without a repeatable edge or execution framework.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Inconsistency</h3>
+            <p>
+                Random decisions lead to unstable results and emotional burnout.
+            </p>
+        </div>
+
     </div>
-  </div>
 
-  <!-- extra stats row -->
-  <div class="investor-strip fade-up">
-    <div><i class="fas fa-chart-line" style="color:#3b82f6; font-size: 2rem;"></i> <strong>+86.7%</strong> YTD Performance</div>
-    <div><i class="fas fa-users" style="color:#3b82f6;"></i> 1,200+ Active Investors</div>
-    <div><i class="fas fa-robot"></i> Telegram Bot Active</div>
-    <div><a href="https://t.me/ramofinancebot" target="_blank" style="color:white; background:#1e3a8a; padding:8px 18px; border-radius:40px; text-decoration:none;"><i class="fab fa-telegram"></i> Join Bot</a></div>
-  </div>
+</section>
 
-  <footer>
-    <p>© 2025 RAMOFINANCE — We manage risk. You grow with confidence.</p>
-  </footer>
-</div>
+<footer>
+    © 2026 RAMOFINANCE — Professional Investment Group
+</footer>
 
-<script>
-  // language switcher (En/Fa)
-  let currentLang = 'en';
-  const langBtn = document.getElementById('langSwitch');
-  const texts = {
-    en: { heroBadge: "Professional", ytd: "YTD", heroDesc: "We manage risk. We follow our edge. You grow with confidence.", btnWaitlist: "Join Waitlist", btnTelegram: "Join Our Telegram", aloneTitle: "Trading Alone Is Hard. The Solution? You're Not Alone.", footer: "© 2025 RAMOFINANCE — We manage risk. You grow with confidence." },
-    fa: { heroBadge: "حرفه‌ای", ytd: "از ابتدای سال", heroDesc: "ما ریسک را مدیریت می‌کنیم. از مزیت خود پیروی می‌کنیم. شما با اطمینان رشد می‌کنید.", btnWaitlist: "عضویت در لیست انتظار", btnTelegram: "ملحق شوید به تلگرام", aloneTitle: "ترید به تنهایی سخت است. راه حل؟ تنها نیستی.", footer: "© ۲۰۲۵ رمـو فایننس — ریسک را مدیریت می‌کنیم، شما با اطمینان رشد کنید." }
-  };
-  langBtn.addEventListener('click', () => {
-    if(currentLang === 'en') {
-      currentLang = 'fa';
-      langBtn.innerHTML = "🇬🇧 English";
-      document.documentElement.lang = "fa";
-      document.body.style.direction = "rtl";
-      document.querySelector('.container').style.direction = "rtl";
-      // update texts
-      document.querySelector('.hero-badge').innerText = texts.fa.heroBadge;
-      document.querySelector('.hero-desc').innerText = texts.fa.heroDesc;
-      document.querySelector('#waitlistHero').innerText = texts.fa.btnWaitlist;
-      const tgBtn = document.querySelector('.btn-primary');
-      if(tgBtn) tgBtn.innerHTML = '<i class="fab fa-telegram"></i> '+texts.fa.btnTelegram;
-      document.querySelector('.section-title').innerHTML = texts.fa.aloneTitle;
-      document.querySelector('footer p').innerText = texts.fa.footer;
-      // also ytd text
-      document.querySelector('.hero-left h1 span:last-child').innerText = texts.fa.ytd;
-    } else {
-      currentLang = 'en';
-      langBtn.innerHTML = "🇮🇷 فارسی";
-      document.documentElement.lang = "en";
-      document.body.style.direction = "ltr";
-      document.querySelector('.container').style.direction = "ltr";
-      document.querySelector('.hero-badge').innerText = texts.en.heroBadge;
-      document.querySelector('.hero-desc').innerText = texts.en.heroDesc;
-      document.querySelector('#waitlistHero').innerText = texts.en.btnWaitlist;
-      const tgBtn = document.querySelector('.btn-primary');
-      if(tgBtn) tgBtn.innerHTML = '<i class="fab fa-telegram"></i> '+texts.en.btnTelegram;
-      document.querySelector('.section-title').innerHTML = texts.en.aloneTitle;
-      document.querySelector('footer p').innerText = texts.en.footer;
-      document.querySelector('.hero-left h1 span:last-child').innerText = texts.en.ytd;
-    }
-  });
-
-  // Animated counter for YTD (+86.7%)
-  const counterEl = document.getElementById('ytdCounter');
-  let start = 0;
-  const end = 86.7;
-  const duration = 1500;
-  const stepTime = 20;
-  const steps = duration / stepTime;
-  const increment = end / steps;
-  let current = 0;
-  const timer = setInterval(() => {
-    current += increment;
-    if(current >= end) {
-      counterEl.innerText = `+${end}%`;
-      clearInterval(timer);
-    } else {
-      counterEl.innerText = `+${current.toFixed(1)}%`;
-    }
-  }, stepTime);
-
-  // Intersection Observer for fade-up animation
-  const faders = document.querySelectorAll('.fade-up');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-  faders.forEach(el => observer.observe(el));
-
-  // waitlist alert
-  document.querySelectorAll('#waitlistHero, .btn-outline-light').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      if(btn.id === 'waitlistHero' || btn.classList.contains('btn-outline-light')) {
-        e.preventDefault();
-        alert(currentLang === 'en' ? 'Waitlist feature coming soon. Please join our Telegram bot for updates!' : 'ویژگی لیست انتظار به زودی. برای اطلاع به بات تلگرام ما بپیوندید!');
-      }
-    });
-  });
-</script>
 </body>
 </html>
