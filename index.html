@@ -68,6 +68,7 @@ nav{
 .nav-links{
     display:flex;
     gap:35px;
+    align-items:center;
 }
 
 .nav-links a{
@@ -80,6 +81,22 @@ nav{
 .nav-links a:hover{
     opacity:1;
     color:#d4af37;
+}
+
+.lang-btn{
+    background:rgba(212,175,55,0.15);
+    border:1px solid rgba(212,175,55,0.4);
+    padding:6px 16px;
+    border-radius:30px;
+    cursor:pointer;
+    color:white;
+    font-size:14px;
+    transition:0.2s;
+}
+
+.lang-btn:hover{
+    background:#d4af37;
+    color:black;
 }
 
 .hero{
@@ -117,6 +134,7 @@ nav{
     margin-top:40px;
     display:flex;
     gap:18px;
+    flex-wrap:wrap;
 }
 
 .btn{
@@ -125,6 +143,7 @@ nav{
     text-decoration:none;
     font-weight:600;
     transition:0.3s;
+    display:inline-block;
 }
 
 .btn-gold{
@@ -140,6 +159,7 @@ nav{
 .btn-dark{
     border:1px solid rgba(255,255,255,0.15);
     color:white;
+    background:transparent;
 }
 
 .btn-dark:hover{
@@ -258,6 +278,22 @@ footer{
 
 }
 
+/* انیمیشن */
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.hero, .section{
+    animation:fadeUp 0.8s ease-out;
+}
+
 </style>
 </head>
 
@@ -271,6 +307,7 @@ footer{
         <a href="#">Strategy</a>
         <a href="#">Performance</a>
         <a href="#">About</a>
+        <button class="lang-btn" id="langToggle">🇮🇷 فارسی</button>
     </div>
 </nav>
 
@@ -278,20 +315,20 @@ footer{
 
     <div class="hero-left">
 
-        <h1>
+        <h1 id="heroTitle">
             Professional<br>
             Investment.<br>
             <span class="gold">Systematic Growth.</span>
         </h1>
 
-        <p>
+        <p id="heroDesc">
             Most traders fail because they rely on emotion, inconsistency, and unmanaged risk.
             RAMOFINANCE is built around structured execution, disciplined systems, and long-term capital growth.
         </p>
 
         <div class="buttons">
-            <a href="#" class="btn btn-gold">Join Telegram</a>
-            <a href="#" class="btn btn-dark">Learn More</a>
+            <a href="https://t.me/ramofinancebot" target="_blank" class="btn btn-gold" id="tgBtn">Join Telegram</a>
+            <a href="#" class="btn btn-dark" id="waitlistBtn">Join Waitlist</a>
         </div>
 
     </div>
@@ -299,7 +336,7 @@ footer{
     <div class="hero-right">
 
         <div class="hero-card">
-            <img src="logo.png" alt="logo">
+            <img src="logo.png" alt="RAMOFINANCE Logo">
         </div>
 
     </div>
@@ -309,35 +346,35 @@ footer{
 <section class="section">
 
     <div class="section-title">
-        <h2>Why Most Traders <span class="gold">Lose</span></h2>
+        <h2 id="sectionTitle">Why Most Traders <span class="gold">Lose</span></h2>
     </div>
 
     <div class="cards">
 
         <div class="card">
-            <h3>Emotional Trading</h3>
-            <p>
+            <h3 id="card1Title">Emotional Trading</h3>
+            <p id="card1Desc">
                 Fear and greed create impulsive decisions that destroy consistency over time.
             </p>
         </div>
 
         <div class="card">
-            <h3>No Risk Structure</h3>
-            <p>
+            <h3 id="card2Title">No Risk Structure</h3>
+            <p id="card2Desc">
                 One uncontrolled position can wipe out months of progress and discipline.
             </p>
         </div>
 
         <div class="card">
-            <h3>Lack of Strategy</h3>
-            <p>
+            <h3 id="card3Title">Lack of Strategy</h3>
+            <p id="card3Desc">
                 Most people enter markets without a repeatable edge or execution framework.
             </p>
         </div>
 
         <div class="card">
-            <h3>Inconsistency</h3>
-            <p>
+            <h3 id="card4Title">Inconsistency</h3>
+            <p id="card4Desc">
                 Random decisions lead to unstable results and emotional burnout.
             </p>
         </div>
@@ -346,9 +383,92 @@ footer{
 
 </section>
 
-<footer>
+<footer id="footerText">
     © 2026 RAMOFINANCE — Professional Investment Group
 </footer>
+
+<script>
+// زبان و متن‌ها
+let currentLang = 'en';
+
+const texts = {
+    en: {
+        heroTitle: 'Professional<br>Investment.<br><span class="gold">Systematic Growth.</span>',
+        heroDesc: 'Most traders fail because they rely on emotion, inconsistency, and unmanaged risk. RAMOFINANCE is built around structured execution, disciplined systems, and long-term capital growth.',
+        tgBtn: 'Join Telegram',
+        waitlistBtn: 'Join Waitlist',
+        sectionTitle: 'Why Most Traders <span class="gold">Lose</span>',
+        card1Title: 'Emotional Trading',
+        card1Desc: 'Fear and greed create impulsive decisions that destroy consistency over time.',
+        card2Title: 'No Risk Structure',
+        card2Desc: 'One uncontrolled position can wipe out months of progress and discipline.',
+        card3Title: 'Lack of Strategy',
+        card3Desc: 'Most people enter markets without a repeatable edge or execution framework.',
+        card4Title: 'Inconsistency',
+        card4Desc: 'Random decisions lead to unstable results and emotional burnout.',
+        footer: '© 2026 RAMOFINANCE — Professional Investment Group'
+    },
+    fa: {
+        heroTitle: 'سرمایه‌گذاری<br>حرفه‌ای.<br><span class="gold">رشدی سیستماتیک.</span>',
+        heroDesc: 'بیشتر تریدرها به خاطر احساسات، نبود سیستم و ریسک مدیریت‌نشده شکست می‌خورند. رمـو فایننس بر اساس اجرای ساختاریافته، سیستم‌های منظم و رشد بلندمدت سرمایه ساخته شده است.',
+        tgBtn: 'پیوستن به تلگرام',
+        waitlistBtn: 'عضویت در لیست انتظار',
+        sectionTitle: 'چرا بیشتر تریدرها <span class="gold">باخت می‌زنند</span>',
+        card1Title: 'معاملات احساسی',
+        card1Desc: 'ترس و طمع تصمیمات آنی می‌سازند که ثبات را از بین می‌برند.',
+        card2Title: 'بدون ساختار ریسک',
+        card2Desc: 'یک معامله بدون کنترل می‌تواند ماه‌ها پیشرفت را نابود کند.',
+        card3Title: 'نداشتن استراتژی',
+        card3Desc: 'بیشتر افراد بدون یک مزیت تکرارشدنی وارد بازار می‌شوند.',
+        card4Title: 'ناهماهنگی',
+        card4Desc: 'تصمیمات تصادفی به نتایج ناپایدار و فرسودگی روانی می‌انجامد.',
+        footer: '© ۲۰۲۶ رمـو فایننس — گروه سرمایه‌گذاری حرفه‌ای'
+    }
+};
+
+function switchLanguage() {
+    if(currentLang === 'en') {
+        currentLang = 'fa';
+        document.getElementById('langToggle').innerHTML = '🇬🇧 English';
+        document.documentElement.lang = 'fa';
+        document.body.style.direction = 'rtl';
+        document.querySelector('.hero-left').style.textAlign = 'right';
+        document.querySelector('.section-title').style.textAlign = 'center';
+    } else {
+        currentLang = 'en';
+        document.getElementById('langToggle').innerHTML = '🇮🇷 فارسی';
+        document.documentElement.lang = 'en';
+        document.body.style.direction = 'ltr';
+        document.querySelector('.hero-left').style.textAlign = 'left';
+    }
+    
+    const t = texts[currentLang];
+    
+    document.getElementById('heroTitle').innerHTML = t.heroTitle;
+    document.getElementById('heroDesc').innerHTML = t.heroDesc;
+    document.getElementById('tgBtn').innerHTML = t.tgBtn;
+    document.getElementById('waitlistBtn').innerHTML = t.waitlistBtn;
+    document.getElementById('sectionTitle').innerHTML = t.sectionTitle;
+    document.getElementById('card1Title').innerHTML = t.card1Title;
+    document.getElementById('card1Desc').innerHTML = t.card1Desc;
+    document.getElementById('card2Title').innerHTML = t.card2Title;
+    document.getElementById('card2Desc').innerHTML = t.card2Desc;
+    document.getElementById('card3Title').innerHTML = t.card3Title;
+    document.getElementById('card3Desc').innerHTML = t.card3Desc;
+    document.getElementById('card4Title').innerHTML = t.card4Title;
+    document.getElementById('card4Desc').innerHTML = t.card4Desc;
+    document.getElementById('footerText').innerHTML = t.footer;
+}
+
+document.getElementById('langToggle').addEventListener('click', switchLanguage);
+
+// دکمه Waitlist
+document.getElementById('waitlistBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    const msg = currentLang === 'en' ? '📋 Waitlist coming soon! Join our Telegram bot for updates.' : '📋 لیست انتظار به زودی! برای اطلاع به بات تلگرام ما بپیوندید.';
+    alert(msg);
+});
+</script>
 
 </body>
 </html>
