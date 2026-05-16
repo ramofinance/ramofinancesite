@@ -3,472 +3,601 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>RAMOFINANCE</title>
+<title>RAMOFINANCE | Systematic Investment Group</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    background:#050505;
-    color:white;
-    font-family:'Inter',sans-serif;
-    overflow-x:hidden;
+body {
+    background: #0a0a0f;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
 }
 
-body::before{
-    content:'';
-    position:fixed;
-    width:700px;
-    height:700px;
-    background:radial-gradient(circle, rgba(212,175,55,0.15), transparent 70%);
-    top:-250px;
-    right:-200px;
-    z-index:-1;
+/* گرادیان‌های پس‌زمینه */
+.bg-glow {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    background: radial-gradient(ellipse at 30% 40%, #1a1a2e, #05050a);
 }
 
-body::after{
-    content:'';
-    position:fixed;
-    width:600px;
-    height:600px;
-    background:radial-gradient(circle, rgba(212,175,55,0.08), transparent 70%);
-    bottom:-250px;
-    left:-150px;
-    z-index:-1;
+.bg-glow::before {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 20%;
+    background: radial-gradient(circle, rgba(212,175,55,0.08), transparent 70%);
+    filter: blur(60px);
 }
 
-nav{
-    width:100%;
-    padding:24px 8%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom:1px solid rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
-    position:fixed;
-    top:0;
-    z-index:100;
-    background:rgba(0,0,0,0.45);
+/* نوار ناوبری */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(12px);
+    background: rgba(10, 10, 20, 0.7);
+    border-bottom: 1px solid rgba(212,175,55,0.15);
 }
 
-.logo{
-    font-size:28px;
-    font-family:'Cinzel',serif;
-    color:#d4af37;
-    letter-spacing:2px;
+.logo-text {
+    font-size: 26px;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    color: #d4af37;
+    letter-spacing: 3px;
 }
 
-.nav-links{
-    display:flex;
-    gap:35px;
-    align-items:center;
+.nav-menu {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-.nav-links a{
-    color:white;
-    text-decoration:none;
-    opacity:0.75;
-    transition:0.3s;
+.nav-menu a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.3s;
+    letter-spacing: 0.5px;
 }
 
-.nav-links a:hover{
-    opacity:1;
-    color:#d4af37;
+.nav-menu a:hover {
+    color: #d4af37;
 }
 
-.lang-btn{
-    background:rgba(212,175,55,0.15);
-    border:1px solid rgba(212,175,55,0.4);
-    padding:6px 16px;
-    border-radius:30px;
-    cursor:pointer;
-    color:white;
-    font-size:14px;
-    transition:0.2s;
+.lang-switch {
+    background: rgba(212,175,55,0.12);
+    border: 1px solid rgba(212,175,55,0.3);
+    padding: 6px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #d4af37;
+    transition: 0.2s;
 }
 
-.lang-btn:hover{
-    background:#d4af37;
-    color:black;
+.lang-switch:hover {
+    background: #d4af37;
+    color: black;
 }
 
-.hero{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:120px 8%;
-    gap:60px;
+/* بخش هیرو */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 140px 8% 80px;
+    gap: 50px;
 }
 
-.hero-left{
-    flex:1;
+.hero-left {
+    flex: 1.2;
 }
 
-.hero-left h1{
-    font-size:78px;
-    line-height:1.05;
-    margin-bottom:25px;
-    font-family:'Cinzel',serif;
+.hero-badge {
+    background: rgba(212,175,55,0.12);
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #d4af37;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
 }
 
-.gold{
-    color:#d4af37;
+.hero-left h1 {
+    font-size: 72px;
+    font-family: 'Cinzel', serif;
+    line-height: 1.08;
+    margin-bottom: 20px;
 }
 
-.hero-left p{
-    max-width:650px;
-    font-size:20px;
-    opacity:0.75;
-    line-height:1.8;
+.hero-left h1 .gold {
+    color: #d4af37;
 }
 
-.buttons{
-    margin-top:40px;
-    display:flex;
-    gap:18px;
-    flex-wrap:wrap;
+.hero-desc {
+    font-size: 18px;
+    opacity: 0.7;
+    line-height: 1.7;
+    max-width: 550px;
+    margin: 25px 0 35px;
 }
 
-.btn{
-    padding:16px 34px;
-    border-radius:12px;
-    text-decoration:none;
-    font-weight:600;
-    transition:0.3s;
-    display:inline-block;
+.btn-group {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
 }
 
-.btn-gold{
-    background:#d4af37;
-    color:black;
+.btn-telegram {
+    background: #d4af37;
+    color: black;
+    padding: 14px 32px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.btn-gold:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 30px rgba(212,175,55,0.3);
+.btn-telegram:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(212,175,55,0.35);
 }
 
-.btn-dark{
-    border:1px solid rgba(255,255,255,0.15);
-    color:white;
-    background:transparent;
+.btn-waitlist {
+    background: transparent;
+    border: 1.5px solid rgba(212,175,55,0.5);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
-.btn-dark:hover{
-    border-color:#d4af37;
-    color:#d4af37;
+.btn-waitlist:hover {
+    border-color: #d4af37;
+    color: #d4af37;
 }
 
-.hero-right{
-    flex:1;
-    display:flex;
-    justify-content:center;
+/* سمت راست - لوگو با کندل‌های متحرک */
+.hero-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.hero-card{
-    width:520px;
-    height:520px;
-    border-radius:32px;
-    background:rgba(255,255,255,0.03);
-    border:1px solid rgba(255,255,255,0.08);
-    backdrop-filter:blur(20px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    overflow:hidden;
+.logo-container {
+    position: relative;
+    width: 480px;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hero-card::before{
-    content:'';
-    position:absolute;
-    width:350px;
-    height:350px;
-    background:radial-gradient(circle, rgba(212,175,55,0.25), transparent 70%);
+/* کندل‌های متحرک پشت لوگو */
+.candles-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
 }
 
-.hero-card img{
-    width:78%;
-    z-index:2;
-    filter:drop-shadow(0 0 25px rgba(212,175,55,0.35));
+.candle {
+    position: absolute;
+    width: 8px;
+    background: linear-gradient(180deg, #d4af37, #ffd966);
+    border-radius: 3px;
+    bottom: 30%;
+    opacity: 0.4;
+    animation: candleMove 3s ease-in-out infinite;
 }
 
-.section{
-    padding:120px 8%;
+@keyframes candleMove {
+    0%, 100% { transform: translateY(0); opacity: 0.2; height: 40px; }
+    50% { transform: translateY(-15px); opacity: 0.6; height: 55px; }
 }
 
-.section-title{
-    text-align:center;
-    margin-bottom:70px;
+/* کندل‌های مختلف */
+.candle1 { left: 15%; width: 6px; height: 45px; animation-delay: 0s; bottom: 25%; }
+.candle2 { left: 28%; width: 5px; height: 35px; animation-delay: 0.5s; bottom: 35%; }
+.candle3 { left: 40%; width: 7px; height: 55px; animation-delay: 1s; bottom: 20%; }
+.candle4 { left: 55%; width: 6px; height: 40px; animation-delay: 0.3s; bottom: 30%; }
+.candle5 { left: 68%; width: 5px; height: 50px; animation-delay: 0.8s; bottom: 28%; }
+.candle6 { left: 82%; width: 7px; height: 38px; animation-delay: 1.2s; bottom: 32%; }
+.candle7 { left: 20%; width: 4px; height: 30px; animation-delay: 1.5s; bottom: 40%; }
+.candle8 { left: 75%; width: 6px; height: 48px; animation-delay: 0.2s; bottom: 22%; }
+.candle9 { left: 48%; width: 5px; height: 42px; animation-delay: 0.7s; bottom: 35%; }
+.candle10 { left: 88%; width: 4px; height: 35px; animation-delay: 1.1s; bottom: 38%; }
+
+.logo-glow {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    background: rgba(212,175,55,0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(212,175,55,0.25);
+    box-shadow: 0 0 50px rgba(212,175,55,0.15);
 }
 
-.section-title h2{
-    font-size:52px;
-    font-family:'Cinzel',serif;
+.logo-glow img {
+    width: 75%;
+    filter: drop-shadow(0 0 20px rgba(212,175,55,0.4));
 }
 
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:24px;
+/* بخش آماری */
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 8%;
+    background: rgba(212,175,55,0.03);
+    border-top: 1px solid rgba(212,175,55,0.08);
+    border-bottom: 1px solid rgba(212,175,55,0.08);
+    flex-wrap: wrap;
+    gap: 30px;
 }
 
-.card{
-    background:rgba(255,255,255,0.03);
-    border:1px solid rgba(255,255,255,0.06);
-    border-radius:24px;
-    padding:35px;
-    transition:0.3s;
+.stat-item {
+    text-align: center;
 }
 
-.card:hover{
-    transform:translateY(-8px);
-    border-color:rgba(212,175,55,0.4);
+.stat-number {
+    font-size: 48px;
+    font-weight: 800;
+    color: #d4af37;
+    font-family: 'Cinzel', serif;
 }
 
-.card h3{
-    margin-bottom:16px;
-    color:#d4af37;
-    font-size:24px;
+.stat-label {
+    font-size: 14px;
+    opacity: 0.6;
+    margin-top: 5px;
 }
 
-.card p{
-    opacity:0.75;
-    line-height:1.7;
+.cta-strip {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(212,175,55,0.1);
+    padding: 8px 20px;
+    border-radius: 60px;
 }
 
-footer{
-    padding:50px 8%;
-    border-top:1px solid rgba(255,255,255,0.06);
-    text-align:center;
-    opacity:0.5;
+.cta-strip span {
+    font-size: 14px;
 }
 
-@media(max-width:1000px){
-
-.hero{
-    flex-direction:column;
-    text-align:center;
+.telegram-mini {
+    background: #d4af37;
+    padding: 8px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 14px;
 }
 
-.hero-left h1{
-    font-size:54px;
+/* بخش مقایسه - Trading Alone Is Hard */
+.comparison-section {
+    padding: 100px 8%;
 }
 
-.buttons{
-    justify-content:center;
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
 }
 
-.hero-card{
-    width:100%;
-    height:420px;
+.section-title h2 {
+    font-size: 48px;
+    font-family: 'Cinzel', serif;
 }
 
-.nav-links{
-    display:none;
+.section-title h2 .gold {
+    color: #d4af37;
 }
 
+.section-title p {
+    opacity: 0.6;
+    margin-top: 15px;
+    font-size: 18px;
 }
 
-/* انیمیشن */
-@keyframes fadeUp{
-    from{
-        opacity:0;
-        transform:translateY(40px);
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.problem-box, .solution-box {
+    background: rgba(255,255,255,0.02);
+    border-radius: 32px;
+    padding: 40px;
+    border: 1px solid rgba(212,175,55,0.1);
+    transition: 0.3s;
+}
+
+.problem-box:hover, .solution-box:hover {
+    border-color: rgba(212,175,55,0.3);
+    transform: translateY(-5px);
+}
+
+.problem-box h3, .solution-box h3 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-family: 'Cinzel', serif;
+}
+
+.problem-box h3 {
+    color: #ff6b6b;
+}
+
+.solution-box h3 {
+    color: #d4af37;
+}
+
+.problem-list, .solution-list {
+    list-style: none;
+}
+
+.problem-list li, .solution-list li {
+    padding: 14px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 16px;
+}
+
+.problem-list li i, .solution-list li i {
+    width: 28px;
+    font-size: 18px;
+}
+
+.problem-list li i { color: #ff6b6b; }
+.solution-list li i { color: #d4af37; }
+
+/* فوتر */
+footer {
+    padding: 50px 8%;
+    text-align: center;
+    border-top: 1px solid rgba(212,175,55,0.08);
+    opacity: 0.5;
+    font-size: 14px;
+}
+
+/* ریسپانسیو */
+@media (max-width: 1000px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
     }
-    to{
-        opacity:1;
-        transform:translateY(0);
+    .hero-desc {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .btn-group {
+        justify-content: center;
+    }
+    .nav-menu {
+        display: none;
+    }
+    .comparison-grid {
+        grid-template-columns: 1fr;
+    }
+    .stats-row {
+        flex-direction: column;
+        text-align: center;
+    }
+    .logo-container {
+        width: 100%;
+        height: auto;
+        min-height: 400px;
+    }
+    .hero-left h1 {
+        font-size: 48px;
     }
 }
 
-.hero, .section{
-    animation:fadeUp 0.8s ease-out;
+/* انیمیشن ورود */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
+.hero, .comparison-section, .stats-row {
+    animation: fadeUp 0.8s ease-out;
+}
 </style>
 </head>
-
 <body>
 
-<nav>
-    <div class="logo">RAMOFINANCE</div>
+<div class="bg-glow"></div>
 
-    <div class="nav-links">
+<nav class="navbar">
+    <div class="logo-text">RAMOFINANCE</div>
+    <div class="nav-menu">
         <a href="#">Home</a>
-        <a href="#">Strategy</a>
-        <a href="#">Performance</a>
+        <a href="#">WhyUs</a>
+        <a href="#">OurEdge</a>
         <a href="#">About</a>
-        <button class="lang-btn" id="langToggle">🇮🇷 فارسی</button>
+        <a href="#">Contact</a>
+        <a href="#">JoinWaitlist</a>
+        <a href="#">Performance</a>
+        <button class="lang-switch" id="langToggle">🇮🇷 فارسی</button>
     </div>
 </nav>
 
 <section class="hero">
-
     <div class="hero-left">
-
-        <h1 id="heroTitle">
-            Professional<br>
-            Investment.<br>
-            <span class="gold">Systematic Growth.</span>
-        </h1>
-
-        <p id="heroDesc">
-            Most traders fail because they rely on emotion, inconsistency, and unmanaged risk.
-            RAMOFINANCE is built around structured execution, disciplined systems, and long-term capital growth.
+        <div class="hero-badge">Professional Investment Group</div>
+        <h1>Investment.<br><span class="gold">Systematic Growth.</span></h1>
+        <p class="hero-desc" id="heroText">
+            We manage risk. We follow our edge. You grow with confidence.
         </p>
-
-        <div class="buttons">
-            <a href="https://t.me/ramofinancebot" target="_blank" class="btn btn-gold" id="tgBtn">Join Telegram</a>
-            <a href="#" class="btn btn-dark" id="waitlistBtn">Join Waitlist</a>
+        <div class="btn-group">
+            <a href="https://t.me/ramofinancebot" target="_blank" class="btn-telegram" id="tgBtn">🤖 Join Our Telegram</a>
+            <a href="#" class="btn-waitlist" id="waitlistBtn">📋 Join Waitlist</a>
         </div>
-
     </div>
-
     <div class="hero-right">
-
-        <div class="hero-card">
-            <img src="logo.png" alt="RAMOFINANCE Logo">
+        <div class="logo-container">
+            <!-- کندل‌های متحرک پشت لوگو -->
+            <div class="candles-bg">
+                <div class="candle candle1"></div>
+                <div class="candle candle2"></div>
+                <div class="candle candle3"></div>
+                <div class="candle candle4"></div>
+                <div class="candle candle5"></div>
+                <div class="candle candle6"></div>
+                <div class="candle candle7"></div>
+                <div class="candle candle8"></div>
+                <div class="candle candle9"></div>
+                <div class="candle candle10"></div>
+            </div>
+            <div class="logo-glow">
+                <img src="logo.png" alt="RAMOFINANCE Logo">
+            </div>
         </div>
-
     </div>
-
 </section>
 
-<section class="section">
+<!-- آمار + نوار دعوت به اقدام -->
+<div class="stats-row">
+    <div class="stat-item">
+        <div class="stat-number">+86.7%</div>
+        <div class="stat-label">YTD Performance</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">1,200+</div>
+        <div class="stat-label">Active Investors</div>
+    </div>
+    <div class="cta-strip">
+        <span>📊 Join 1000+ investors building their financial future with us</span>
+        <a href="https://t.me/ramofinancebot" target="_blank" class="telegram-mini">Join Bot →</a>
+    </div>
+</div>
 
+<!-- بخش مقایسه -->
+<section class="comparison-section">
     <div class="section-title">
-        <h2 id="sectionTitle">Why Most Traders <span class="gold">Lose</span></h2>
+        <h2>Trading Alone Is Hard.<br><span class="gold">The Solution? You're Not Alone.</span></h2>
+        <p>RAMOFINANCE — Professional Risk Management</p>
     </div>
-
-    <div class="cards">
-
-        <div class="card">
-            <h3 id="card1Title">Emotional Trading</h3>
-            <p id="card1Desc">
-                Fear and greed create impulsive decisions that destroy consistency over time.
-            </p>
+    <div class="comparison-grid">
+        <div class="problem-box">
+            <h3>⚠️ Trading Alone</h3>
+            <ul class="problem-list">
+                <li><i>🔥</i> Emotional Decisions — Fear and greed lead to impulsive trades</li>
+                <li><i>💀</i> No Risk Management — One bad trade can wipe out your account</li>
+                <li><i>🎲</i> Lack of Strategy — Without a clear plan, you're just guessing</li>
+                <li><i>⏰</i> Time Consuming — Markets never sleep, but you can't watch 24/7</li>
+                <li><i>📉</i> Inconsistent Results — Some wins, more losses. Zero consistency.</li>
+            </ul>
         </div>
-
-        <div class="card">
-            <h3 id="card2Title">No Risk Structure</h3>
-            <p id="card2Desc">
-                One uncontrolled position can wipe out months of progress and discipline.
-            </p>
+        <div class="solution-box">
+            <h3>✓ RAMOFINANCE</h3>
+            <ul class="solution-list">
+                <li><i>⚡</i> Systematic & Proven Strategies — Data-Driven Decisions</li>
+                <li><i>🛡️</i> Professional Risk Management — We follow our edge</li>
+                <li><i>🎯</i> Discipline Over Emotions — No impulsive decisions</li>
+                <li><i>📊</i> Consistent Long-Term Growth</li>
+                <li><i>🤖</i> 24/7 Automated Systems & Telegram Bot</li>
+            </ul>
         </div>
-
-        <div class="card">
-            <h3 id="card3Title">Lack of Strategy</h3>
-            <p id="card3Desc">
-                Most people enter markets without a repeatable edge or execution framework.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3 id="card4Title">Inconsistency</h3>
-            <p id="card4Desc">
-                Random decisions lead to unstable results and emotional burnout.
-            </p>
-        </div>
-
     </div>
-
 </section>
 
-<footer id="footerText">
+<footer>
     © 2026 RAMOFINANCE — Professional Investment Group
 </footer>
 
 <script>
-// زبان و متن‌ها
+// زبان دوزبانه (انگلیسی اول، فارسی دوم)
 let currentLang = 'en';
+
+const langToggle = document.getElementById('langToggle');
+const heroText = document.getElementById('heroText');
+const tgBtn = document.getElementById('tgBtn');
+const waitlistBtn = document.getElementById('waitlistBtn');
 
 const texts = {
     en: {
-        heroTitle: 'Professional<br>Investment.<br><span class="gold">Systematic Growth.</span>',
-        heroDesc: 'Most traders fail because they rely on emotion, inconsistency, and unmanaged risk. RAMOFINANCE is built around structured execution, disciplined systems, and long-term capital growth.',
-        tgBtn: 'Join Telegram',
-        waitlistBtn: 'Join Waitlist',
-        sectionTitle: 'Why Most Traders <span class="gold">Lose</span>',
-        card1Title: 'Emotional Trading',
-        card1Desc: 'Fear and greed create impulsive decisions that destroy consistency over time.',
-        card2Title: 'No Risk Structure',
-        card2Desc: 'One uncontrolled position can wipe out months of progress and discipline.',
-        card3Title: 'Lack of Strategy',
-        card3Desc: 'Most people enter markets without a repeatable edge or execution framework.',
-        card4Title: 'Inconsistency',
-        card4Desc: 'Random decisions lead to unstable results and emotional burnout.',
-        footer: '© 2026 RAMOFINANCE — Professional Investment Group'
+        heroText: 'We manage risk. We follow our edge. You grow with confidence.',
+        tgBtn: '🤖 Join Our Telegram',
+        waitlistBtn: '📋 Join Waitlist'
     },
     fa: {
-        heroTitle: 'سرمایه‌گذاری<br>حرفه‌ای.<br><span class="gold">رشدی سیستماتیک.</span>',
-        heroDesc: 'بیشتر تریدرها به خاطر احساسات، نبود سیستم و ریسک مدیریت‌نشده شکست می‌خورند. رمـو فایننس بر اساس اجرای ساختاریافته، سیستم‌های منظم و رشد بلندمدت سرمایه ساخته شده است.',
-        tgBtn: 'پیوستن به تلگرام',
-        waitlistBtn: 'عضویت در لیست انتظار',
-        sectionTitle: 'چرا بیشتر تریدرها <span class="gold">باخت می‌زنند</span>',
-        card1Title: 'معاملات احساسی',
-        card1Desc: 'ترس و طمع تصمیمات آنی می‌سازند که ثبات را از بین می‌برند.',
-        card2Title: 'بدون ساختار ریسک',
-        card2Desc: 'یک معامله بدون کنترل می‌تواند ماه‌ها پیشرفت را نابود کند.',
-        card3Title: 'نداشتن استراتژی',
-        card3Desc: 'بیشتر افراد بدون یک مزیت تکرارشدنی وارد بازار می‌شوند.',
-        card4Title: 'ناهماهنگی',
-        card4Desc: 'تصمیمات تصادفی به نتایج ناپایدار و فرسودگی روانی می‌انجامد.',
-        footer: '© ۲۰۲۶ رمـو فایننس — گروه سرمایه‌گذاری حرفه‌ای'
+        heroText: 'ما ریسک را مدیریت می‌کنیم. از مزیت خود پیروی می‌کنیم. شما با اطمینان رشد می‌کنید.',
+        tgBtn: '🤖 پیوستن به تلگرام',
+        waitlistBtn: '📋 عضویت در لیست انتظار'
     }
 };
 
-function switchLanguage() {
-    if(currentLang === 'en') {
-        currentLang = 'fa';
-        document.getElementById('langToggle').innerHTML = '🇬🇧 English';
-        document.documentElement.lang = 'fa';
-        document.body.style.direction = 'rtl';
-        document.querySelector('.hero-left').style.textAlign = 'right';
-        document.querySelector('.section-title').style.textAlign = 'center';
-    } else {
-        currentLang = 'en';
-        document.getElementById('langToggle').innerHTML = '🇮🇷 فارسی';
-        document.documentElement.lang = 'en';
-        document.body.style.direction = 'ltr';
-        document.querySelector('.hero-left').style.textAlign = 'left';
-    }
-    
+function updateLanguage() {
     const t = texts[currentLang];
-    
-    document.getElementById('heroTitle').innerHTML = t.heroTitle;
-    document.getElementById('heroDesc').innerHTML = t.heroDesc;
-    document.getElementById('tgBtn').innerHTML = t.tgBtn;
-    document.getElementById('waitlistBtn').innerHTML = t.waitlistBtn;
-    document.getElementById('sectionTitle').innerHTML = t.sectionTitle;
-    document.getElementById('card1Title').innerHTML = t.card1Title;
-    document.getElementById('card1Desc').innerHTML = t.card1Desc;
-    document.getElementById('card2Title').innerHTML = t.card2Title;
-    document.getElementById('card2Desc').innerHTML = t.card2Desc;
-    document.getElementById('card3Title').innerHTML = t.card3Title;
-    document.getElementById('card3Desc').innerHTML = t.card3Desc;
-    document.getElementById('card4Title').innerHTML = t.card4Title;
-    document.getElementById('card4Desc').innerHTML = t.card4Desc;
-    document.getElementById('footerText').innerHTML = t.footer;
+    heroText.innerText = t.heroText;
+    tgBtn.innerHTML = t.tgBtn;
+    waitlistBtn.innerText = t.waitlistBtn;
+    langToggle.innerHTML = currentLang === 'en' ? '🇮🇷 فارسی' : '🇬🇧 English';
+    document.documentElement.lang = currentLang === 'en' ? 'en' : 'fa';
+    document.body.style.direction = currentLang === 'en' ? 'ltr' : 'rtl';
+    document.querySelector('.hero-left').style.textAlign = currentLang === 'en' ? 'left' : 'right';
+    if(currentLang === 'fa') {
+        document.querySelector('.hero-desc').style.marginRight = 'auto';
+        document.querySelector('.hero-desc').style.marginLeft = '0';
+    } else {
+        document.querySelector('.hero-desc').style.marginLeft = 'auto';
+        document.querySelector('.hero-desc').style.marginRight = '0';
+    }
 }
 
-document.getElementById('langToggle').addEventListener('click', switchLanguage);
+langToggle.addEventListener('click', () => {
+    currentLang = currentLang === 'en' ? 'fa' : 'en';
+    updateLanguage();
+});
 
-// دکمه Waitlist
-document.getElementById('waitlistBtn').addEventListener('click', function(e) {
+document.getElementById('waitlistBtn').addEventListener('click', (e) => {
     e.preventDefault();
     const msg = currentLang === 'en' ? '📋 Waitlist coming soon! Join our Telegram bot for updates.' : '📋 لیست انتظار به زودی! برای اطلاع به بات تلگرام ما بپیوندید.';
     alert(msg);
 });
-</script>
 
+updateLanguage();
+</script>
 </body>
 </html>
