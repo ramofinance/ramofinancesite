@@ -56,7 +56,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .avatars .avatar:first-child{margin-left:0}
 
 .hero-right{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;padding:0 5% 0 2%}
-.hero-logo{width:min(400px,88%);height:auto;display:block}
+.hero-logo{width:min(500px,88%);height:auto;display:block}
 
 .perf-badge{position:absolute;top:40px;right:40px;background:rgba(8,8,8,0.75);border:1px solid rgba(201,168,76,0.25);backdrop-filter:blur(12px);padding:14px 22px;z-index:3}
 .perf-badge .label{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px}
@@ -272,7 +272,68 @@ const ctx = canvas.getContext('2d');
 function resize() {
   canvas.width  = canvas.offsetWidth;
   canvas.height = canvas.offsetHeight;
-  buildCharts();
+  
+// ── Orbit particles around logo ──
+const orbit1 = { angle: 0, speed: 0.012 };
+const orbit2 = { angle: Math.PI, speed: 0.012 };
+
+function drawOrbitParticles() {
+  // Get logo position (center of right side)
+  const W = canvas.width, H = canvas.height;
+  const logoX = W * 0.75;
+  const logoY = H * 0.5;
+  const radius = Math.min(W, H) * 0.22;
+
+  // Particle 1
+  const x1 = logoX + Math.cos(orbit1.angle) * radius;
+  const y1 = logoY + Math.sin(orbit1.angle) * radius;
+  drawParticleWithTail(x1, y1, orbit1.angle);
+
+  // Particle 2
+  const x2 = logoX + Math.cos(orbit2.angle) * radius;
+  const y2 = logoY + Math.sin(orbit2.angle) * radius;
+  drawParticleWithTail(x2, y2, orbit2.angle);
+
+  // Advance angles
+  orbit1.angle += orbit1.speed;
+  orbit2.angle += orbit2.speed;
+}
+
+function drawParticleWithTail(x, y, angle) {
+  // Tail (3 fading dots behind)
+  for (let i = 3; i > 0; i--) {
+    const dist = i * 12;
+    const tx = x - Math.cos(angle) * dist;
+    const ty = y - Math.sin(angle) * dist;
+    const alpha = 0.15 * (1 - i / 4);
+    
+    const tGrad = ctx.createRadialGradient(tx, ty, 0, tx, ty, 8);
+    tGrad.addColorStop(0, `rgba(201,168,76,${alpha})`);
+    tGrad.addColorStop(1, 'rgba(201,168,76,0)');
+    ctx.beginPath();
+    ctx.arc(tx, ty, 8, 0, Math.PI * 2);
+    ctx.fillStyle = tGrad;
+    ctx.fill();
+  }
+
+  // Main particle glow
+  const glow = ctx.createRadialGradient(x, y, 0, x, y, 12);
+  glow.addColorStop(0, 'rgba(245,228,168,0.9)');
+  glow.addColorStop(0.4, 'rgba(201,168,76,0.5)');
+  glow.addColorStop(1, 'rgba(201,168,76,0)');
+  ctx.beginPath();
+  ctx.arc(x, y, 12, 0, Math.PI * 2);
+  ctx.fillStyle = glow;
+  ctx.fill();
+
+  // Core
+  ctx.beginPath();
+  ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+  ctx.fillStyle = '#F5E4A8';
+  ctx.fill();
+}
+
+buildCharts();
 }
 
 // ── Static chart data (built once, never scrolls) ──
@@ -416,6 +477,75 @@ function animate() {
   requestAnimationFrame(animate);
 
   drawStatic();
+
+  // ── Orbit particles around logo ──
+  const W = canvas.width, H = canvas.height;
+  const logoX = W * 0.75;
+  const logoY = H * 0.5;
+  const radius = Math.min(W, H) * 0.2;
+  
+  if (!window.orbit1) {
+    window.orbit1 = { angle: 0 };
+    window.orbit2 = { angle: Math.PI };
+  }
+  
+  // Draw particle 1
+  const x1 = logoX + Math.cos(window.orbit1.angle) * radius;
+  const y1 = logoY + Math.sin(window.orbit1.angle) * radius;
+  
+  // Tail
+  for (let i = 3; i > 0; i--) {
+    const tx = x1 - Math.cos(window.orbit1.angle) * (i * 10);
+    const ty = y1 - Math.sin(window.orbit1.angle) * (i * 10);
+    const tg = ctx.createRadialGradient(tx,ty,0,tx,ty,7);
+    tg.addColorStop(0, `rgba(201,168,76,${0.12 * (1 - i/4)})`);
+    tg.addColorStop(1, 'rgba(201,168,76,0)');
+    ctx.beginPath(); ctx.arc(tx,ty,7,0,Math.PI*2);
+    ctx.fillStyle = tg; ctx.fill();
+  }
+  // Glow
+  const g1 = ctx.createRadialGradient(x1,y1,0,x1,y1,11);
+  g1.addColorStop(0, 'rgba(245,228,168,0.85)');
+  g1.addColorStop(0.5, 'rgba(201,168,76,0.4)');
+  g1.addColorStop(1, 'rgba(201,168,76,0)');
+  ctx.beginPath(); ctx.arc(x1,y1,11,0,Math.PI*2);
+  ctx.fillStyle = g1; ctx.fill();
+  // Core
+  ctx.beginPath(); ctx.arc(x1,y1,3.5,0,Math.PI*2);
+  ctx.fillStyle = '#F5E4A8'; ctx.fill();
+  
+  // Draw particle 2
+  const x2 = logoX + Math.cos(window.orbit2.angle) * radius;
+  const y2 = logoY + Math.sin(window.orbit2.angle) * radius;
+  
+  // Tail
+  for (let i = 3; i > 0; i--) {
+    const tx = x2 - Math.cos(window.orbit2.angle) * (i * 10);
+    const ty = y2 - Math.sin(window.orbit2.angle) * (i * 10);
+    const tg = ctx.createRadialGradient(tx,ty,0,tx,ty,7);
+    tg.addColorStop(0, `rgba(201,168,76,${0.12 * (1 - i/4)})`);
+    tg.addColorStop(1, 'rgba(201,168,76,0)');
+    ctx.beginPath(); ctx.arc(tx,ty,7,0,Math.PI*2);
+    ctx.fillStyle = tg; ctx.fill();
+  }
+  // Glow
+  const g2 = ctx.createRadialGradient(x2,y2,0,x2,y2,11);
+  g2.addColorStop(0, 'rgba(245,228,168,0.85)');
+  g2.addColorStop(0.5, 'rgba(201,168,76,0.4)');
+  g2.addColorStop(1, 'rgba(201,168,76,0)');
+  ctx.beginPath(); ctx.arc(x2,y2,11,0,Math.PI*2);
+  ctx.fillStyle = g2; ctx.fill();
+  // Core
+  ctx.beginPath(); ctx.arc(x2,y2,3.5,0,Math.PI*2);
+  ctx.fillStyle = '#F5E4A8'; ctx.fill();
+  
+  // Advance
+  window.orbit1.angle += 0.011;
+  window.orbit2.angle += 0.011;
+
+
+  // Draw orbit particles around logo
+  drawOrbitParticles();
 
   // Advance line dot
   lineDot.progress += lineDot.speed;
