@@ -56,7 +56,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .avatars .avatar:first-child{margin-left:0}
 
 .hero-right{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;padding:0 5% 0 2%}
-.hero-logo{width:min(400px,88%);height:auto;display:block}
+.hero-logo{width:min(625px,88%);height:auto;display:block;position:relative;z-index:10}
+
+/* Orbital dots around logo */
+.logo-orbit{position:absolute;inset:50%;transform:translate(-50%,-50%);width:500px;height:500px;pointer-events:none}
+.orbit-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#F5E4A8,var(--gold));box-shadow:0 0 12px var(--gold),0 0 24px rgba(201,168,76,0.6);top:50%;left:50%;transform:translate(-50%,-50%);animation:orbit 8s linear infinite}
+.orbit-dot::before{content:'';position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(245,228,168,0.4),transparent);box-shadow:0 0 20px rgba(201,168,76,0.4);filter:blur(2px)}
+.orbit-dot:nth-child(2){animation-delay:4s}
+
+@keyframes orbit{
+  0%{transform:translate(-50%,-50%) rotate(0deg) translateY(-220px) rotate(0deg)}
+  100%{transform:translate(-50%,-50%) rotate(360deg) translateY(-220px) rotate(-360deg)}
+}
 
 .perf-badge{position:absolute;top:40px;right:40px;background:rgba(8,8,8,0.75);border:1px solid rgba(201,168,76,0.25);backdrop-filter:blur(12px);padding:14px 22px;z-index:3}
 .perf-badge .label{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px}
